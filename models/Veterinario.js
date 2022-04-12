@@ -25,7 +25,7 @@ const veterinarioSchema = mongoose.Schema({
      },
      web: {
           type: String,
-          default: null
+          default: null 
      },
      token: {
           type: String,
@@ -37,6 +37,7 @@ const veterinarioSchema = mongoose.Schema({
      }
 });
 
+// Antes de guardar el veterinario, se Hashea la password. Esta se almacena en la BD
 veterinarioSchema.pre('save', async function(next) {
      if(!this.isModified('password')){
           next();

@@ -7,9 +7,10 @@ const registrar = async (req, res) => {
 
      // Prevenir usuarios duplicados
      const existeUsuario = await Veterinario.findOne({email});
-
      if(existeUsuario){
           const error = new Error('El email ya esta registrado');
+
+          // Si existe, retorna 400 y el msj
           return res.status(400).json({msg: error.message});
      }
      
@@ -22,12 +23,7 @@ const registrar = async (req, res) => {
      } catch (error) {
           console.log(error)
      }
-};
-
-const perfil = (req, res) => {
-     const { veterinario } = req;
-     res.json({veterinario})
-};
+}; // Entendido
 
 const confirmar = async (req,res) => {
      const { token } = req.params;
@@ -50,7 +46,12 @@ const confirmar = async (req,res) => {
      } catch (error) {
           console.log(error);
      }     
-}
+}; // Entendido
+
+const perfil = (req, res) => {
+     const { veterinario } = req;
+     res.json({veterinario})
+};  
 
 const autenticar = async(req, res) => {
      const { email, password } = req.body;
