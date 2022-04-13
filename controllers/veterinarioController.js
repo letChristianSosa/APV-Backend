@@ -76,7 +76,7 @@ const autenticar = async(req, res) => {
           const error = new Error('Password Incorrecto');
           return res.status(403).json({msg: error.message});
      }
-};
+}; // Entendido
 
 const olvidePassword = async (req, res) => {
      const {email} = req.body;
