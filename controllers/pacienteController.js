@@ -23,7 +23,7 @@ const obtenerPaciente = async (req,res) => {
      const paciente = await Paciente.findById(id);
 
      if(!paciente){
-          res.status(404).json({msg: "No encontrado"})
+          return res.status(404).json({msg: "No encontrado"})
      }
 
      if(paciente.veterinario._id.toString() !== req.veterinario._id.toString()){
@@ -39,7 +39,7 @@ const actualizarPaciente = async (req,res) => {
      const paciente = await Paciente.findById(id);
 
      if(!paciente){
-          res.status(404).json({msg: "No encontrado"})
+          return res.status(404).json({msg: "No encontrado"})
      }
 
      if(paciente.veterinario._id.toString() !== req.veterinario._id.toString()){
@@ -67,7 +67,7 @@ const eliminarPaciente = async (req,res) => {
      const paciente = await Paciente.findById(id);
 
      if(!paciente){
-          res.status(404).json({msg: "No encontrado"})
+          return res.status(404).json({msg: "No encontrado"})
      }
 
      if(paciente.veterinario._id.toString() !== req.veterinario._id.toString()){
