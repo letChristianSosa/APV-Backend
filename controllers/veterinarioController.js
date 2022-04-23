@@ -2,6 +2,7 @@ import Veterinario from "../models/Veterinario.js";
 import generarJWT from "../helpers/generarJWT.js";
 import generarId from "../helpers/generarId.js";
 import emailRegistro from "../helpers/emailRegistro.js";
+import emailOlvidePassword from "../helpers/emailOlvidePassword.js";
 
 const registrar = async (req, res) => {
      const { email, nombre } = req.body;
@@ -59,7 +60,7 @@ const confirmar = async (req,res) => {
 
 const perfil = (req, res) => {
      const { veterinario } = req;
-     res.json({veterinario})
+     res.json(veterinario)
 };  
 
 const autenticar = async(req, res) => {
@@ -80,14 +81,17 @@ const autenticar = async(req, res) => {
 
      // Autenticar el usuario
      if(await usuario.comprobarPassword(password)){
-          res.json({token: generarJWT(usuario.id)});
+          res.json({
+               _id: usuario._id,
+               nombre: usuario.nombre,
+               email: usuario.email,
+               token: generarJWT(usuario.id)
+          });
      }else{
           const error = new Error('Password Incorrecto');
           return res.status(403).json({msg: error.message});
      }
 }; // Entendido
-
-
 
 const olvidePassword = async (req, res) => {
      const {email} = req.body;
@@ -101,6 +105,13 @@ const olvidePassword = async (req, res) => {
      try {
           existeVeterinario.token = generarId();
           await existeVeterinario.save();
+
+          emailOlvidePassword({
+               email,
+               nombre: existeVeterinario.nombre,
+               token: existeVeterinario.token
+          });
+
           res.json({msg: "Hemos enviado un email con las instrucciones"});
      } catch (error) {
           console.log(error);
