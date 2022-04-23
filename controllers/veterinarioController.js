@@ -81,14 +81,17 @@ const autenticar = async(req, res) => {
 
      // Autenticar el usuario
      if(await usuario.comprobarPassword(password)){
-          res.json({token: generarJWT(usuario.id)});
+          res.json({
+               _id: usuario._id,
+               nombre: usuario.nombre,
+               email: usuario.email,
+               token: generarJWT(usuario.id)
+          });
      }else{
           const error = new Error('Password Incorrecto');
           return res.status(403).json({msg: error.message});
      }
 };
-
-
 
 const olvidePassword = async (req, res) => {
      const {email} = req.body;
