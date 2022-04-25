@@ -182,8 +182,6 @@ const nuevoPassword = async (req, res) => {
 };
 
 const actualizarPassword = async (req, res) => {
-     console.log('hola');
-     // console.log(req.veterinario);
      const {id} = req.veterinario;
      const {pwd_actual, pwd_nuevo} = req.body;
      
