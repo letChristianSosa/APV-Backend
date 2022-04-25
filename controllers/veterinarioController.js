@@ -95,7 +95,7 @@ const autenticar = async(req, res) => {
      const { email, password } = req.body;
 
      // Comprobar si el usuario existe
-     const usuario = await Veterinario.findOne({email});
+     const usuario = await Veterinario.findOne({email: email});
      if(!usuario){
           const error = new Error('El usuario no existe');
           return res.status(403).json({msg: error.message});
@@ -113,6 +113,8 @@ const autenticar = async(req, res) => {
                _id: usuario._id,
                nombre: usuario.nombre,
                email: usuario.email,
+               web: usuario.web,
+               telefono: usuario.telefono,
                token: generarJWT(usuario.id)
           });
      }else{
