@@ -21,9 +21,7 @@ const corsOptions = {
     }
   },
 };
-corsOptions;
-
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use("/api/veterinarios", veterinarioRoutes);
 app.use("/api/pacientes", pacienteRoutes);
